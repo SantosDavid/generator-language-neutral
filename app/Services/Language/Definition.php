@@ -2,6 +2,8 @@
 
 namespace App\Services\Language;
 
+use App\Services\Language\Visitor\Visitor;
+
 abstract class Definition
 {
     protected $name;
@@ -11,5 +13,12 @@ abstract class Definition
         $this->name = $name;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public abstract function flag(): string;
+
+    public abstract function visitor(Visitor $visitor): void;
 }

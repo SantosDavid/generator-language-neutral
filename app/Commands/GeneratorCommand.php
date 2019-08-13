@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Services\Language\Builder\BuilderLanguageService;
+use App\Services\Language\Visitor\PHPVisitor;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Support\Facades\File;
 use RuntimeException;
@@ -28,9 +29,10 @@ class GeneratorCommand extends Command
      * Execute the console command.
      *
      * @param BuilderLanguageService $builderLanguage
+     * @param PHPVisitor $visitor
      * @return mixed
      */
-    public function handle(BuilderLanguageService $builderLanguage)
+    public function handle(BuilderLanguageService $builderLanguage, PHPVisitor $visitor)
     {
         $path = $this->input->getArgument('file');
 
@@ -48,6 +50,10 @@ class GeneratorCommand extends Command
         }
 
         $languageService = $builderLanguage->getLanguage();
+
+        $languageService->visitor($visitor);
+
+        dump($visitor->getResult());
     }
 
     /**

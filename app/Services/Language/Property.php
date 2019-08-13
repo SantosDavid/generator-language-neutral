@@ -3,6 +3,7 @@
 namespace App\Services\Language;
 
 use App\Enums\Flag;
+use App\Services\Language\Visitor\Visitor;
 
 class Property extends Definition
 {
@@ -21,5 +22,10 @@ class Property extends Definition
     public function flag(): string
     {
         return Flag::PROPERTY();
+    }
+
+    public function visitor(Visitor $visitor): void
+    {
+        $visitor->propertyTag($this);
     }
 }

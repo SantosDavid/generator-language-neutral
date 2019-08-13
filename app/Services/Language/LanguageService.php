@@ -3,6 +3,7 @@
 namespace App\Services\Language;
 
 use App\Enums\Flag;
+use App\Services\Language\Visitor\Visitor;
 
 class LanguageService extends Definition
 {
@@ -23,5 +24,12 @@ class LanguageService extends Definition
     public function flag(): string
     {
         return Flag::COLLECT();
+    }
+
+    public function visitor(Visitor $visitor): void
+    {
+        $this->definitions->each(function (Definition $definition) use ($visitor) {
+            $definition->visitor($visitor);
+        });
     }
 }
