@@ -4,11 +4,27 @@ namespace App\Services\Language\Visitor;
 
 use App\Services\Language\Definition;
 
-interface Visitor
+abstract class Visitor
 {
-    public function startTag(Definition $definition): void;
+    protected $result;
 
-    public function propertyTag(Definition $definition): void;
+    protected $className;
 
-    public function endTag(Definition $definition): void;
+    public abstract function startTag(Definition $definition): void;
+
+    public abstract function propertyTag(Definition $definition): void;
+
+    public abstract function endTag(Definition $definition): void;
+
+    public abstract function getExtension(): string;
+    
+    public function getResult()
+    {
+        return $this->result;
+    }
+
+    public function getClassName(): string
+    {
+        return $this->className;
+    }
 }
