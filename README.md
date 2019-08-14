@@ -16,7 +16,7 @@ Give some file with valid instructions generate the code for php and nodejs.
     E    
 
 ### Usage:
-    - php generator-language-neutral generator {path-to-file}
+     RUN into terminal: php generator-language-neutral generator {path-to-file}
 
 ### Bonus
     - Make easy implement new languages
