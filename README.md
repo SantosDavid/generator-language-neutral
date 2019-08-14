@@ -10,10 +10,10 @@ Give some file with valid instructions generate the code for php and nodejs.
     - E end of file
 
 ### Example:    
-    - M Product
-    - F id int
-    - F name text[30]
-    - E    
+    M Product
+    F id int
+    F name text[30]
+    E    
 
 ### Bonus
     - Make easy implement new languages
