@@ -15,5 +15,8 @@ Give some file with valid instructions generate the code for php and nodejs.
     F name text[30]
     E    
 
+### Usage:
+    - php generator-language-neutral generator {path-to-file}
+
 ### Bonus
     - Make easy implement new languages
