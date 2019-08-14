@@ -2,11 +2,12 @@
 
 namespace App\Commands;
 
+use App\Services\Export\FileExport;
 use App\Services\Language\Builder\BuilderLanguageService;
+use App\Services\Language\Visitor\NodeVisitor;
 use App\Services\Language\Visitor\PHPVisitor;
+use App\Services\Language\Visitor\Visitor;
 use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Support\Facades\File;
-use RuntimeException;
 use LaravelZero\Framework\Commands\Command;
 
 class GeneratorCommand extends Command
@@ -25,35 +26,35 @@ class GeneratorCommand extends Command
      */
     protected $description = 'Generate language neutral from file';
 
+    private $visitors;
+
+    public function __construct(PHPVisitor $PHPVisitor, NodeVisitor $nodeVisitor)
+    {
+        parent::__construct();
+
+        $this->visitors = collect([$PHPVisitor, $nodeVisitor]);
+    }
+
     /**
      * Execute the console command.
      *
      * @param BuilderLanguageService $builderLanguage
-     * @param PHPVisitor $visitor
+     * @param FileExport $fileExport
      * @return mixed
      */
-    public function handle(BuilderLanguageService $builderLanguage, PHPVisitor $visitor)
+    public function handle(BuilderLanguageService $builderLanguage, FileExport $fileExport)
     {
         $path = $this->input->getArgument('file');
 
-        if (File::extension($path) !== 'txt') {
-            throw new RuntimeException('the file type must be txt');
-        }
-
-        //TODO move operations with file
-        $file = explode("\n", File::get($path));
-
-        foreach ($file as $row) {
-            if ($row !== '') {
-                $builderLanguage->add($row);
-            }
-        }
+        parse_file_to_builder($path, $builderLanguage);
 
         $languageService = $builderLanguage->getLanguage();
 
-        $languageService->visitor($visitor);
+        $this->visitors->each(function (Visitor $visitor) use ($languageService, $fileExport) {
+            $languageService->visitor($visitor);
 
-        dump($visitor->getResult());
+            $fileExport->export($visitor);
+        });
     }
 
     /**

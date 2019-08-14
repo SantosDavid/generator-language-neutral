@@ -4,18 +4,18 @@ namespace App\Services\Language\Visitor;
 
 use App\Services\Language\Definition;
 
-class PHPVisitor extends Visitor
+class NodeVisitor extends Visitor
 {
     public function startTag(Definition $definition): void
     {
         $this->className = $definition->getName();
 
-        $this->result .= "<?php\nclass {$definition->getName()} {\n";
+        $this->result .= "class {$definition->getName()} {\n";
     }
 
     public function propertyTag(Definition $definition): void
     {
-        $this->result .= "  private \${$definition->getName()};\n";
+        $this->result .= "{$definition->getName()};\n";
     }
 
     public function endTag(Definition $definition): void
@@ -25,6 +25,6 @@ class PHPVisitor extends Visitor
 
     public function getExtension(): string
     {
-        return '.php';
+        return '.js';
     }
 }

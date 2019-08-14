@@ -29,7 +29,6 @@ class BuilderLanguageService
 
         $options = $definition[2] ?? null;
 
-        //TODO find a better way to discover the right class
         switch ($flag) {
             case 'M':
                 $child = new Start($name);
