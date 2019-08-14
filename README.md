@@ -12,7 +12,7 @@ Give some file with valid instructions generate the code for php and nodejs.
 ### Example:    
     M Product
     F id int
-    F name
+    F name string[30]
     E    
 
 ### Usage:
