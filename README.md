@@ -1,6 +1,6 @@
 # Generator language neutral
 
-### Retired from pragmatic programmer book
+### Withdrawn from pragmatic programmer book
 
 Give some file with valid instructions generate the code for php and nodejs.
 
